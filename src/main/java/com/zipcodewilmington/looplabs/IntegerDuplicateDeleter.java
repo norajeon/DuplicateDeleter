@@ -18,17 +18,22 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
 
     @Override
     public Integer[] removeDuplicates(int maxNumberOfDuplications) {
-//        Stream<Integer> st = Arrays.stream(intArray);
-        List<Integer> list = Arrays.asList(intArray);
-        List<Integer> listWithout = list.stream()
-                .distinct()
-                .collect(Collectors.toList());
-        return listWithout.toArray(new Integer[0]);
+
+   return Arrays.stream(array).filter((numb) -> (Arrays.stream(array).filter((fil) -> fil.equals(numb)).count())
+           < maxNumberOfDuplications).toArray(size -> Arrays.copyOf(array, size));
 
     }
 
     @Override
     public Integer[] removeDuplicatesExactly(int exactNumberOfDuplications) {
-        return new Integer[0];
+        return Arrays.stream(array).filter((number) -> (Arrays.stream(array).filter((fil) -> fil.equals(number)).count())
+                != exactNumberOfDuplications).toArray(size -> Arrays.copyOf(array, size));
+
+
+//        List<Integer> list = Arrays.asList(intArray);
+//        List<Integer> listWithout = list.stream()
+//                .distinct()
+//                .collect(Collectors.toList());
+//        return listWithout.toArray(new Integer[0]);
     }
 }
